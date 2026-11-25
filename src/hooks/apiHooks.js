@@ -66,24 +66,24 @@ function useUser() {
     return userResult.user;
   }
 
+  async function postUser(inputs) {
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(inputs),
+    };
+
+    const registrationResult = await fetchData(
+      import.meta.env.VITE_AUTH_API + '/users',
+      fetchOptions,
+    );
+
+    return registrationResult;
+  }
+
   return {getUserByToken, postUser};
-}
-
-async function postUser(inputs) {
-  const fetchOptions = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(inputs),
-  };
-
-  const registrationResult = await fetchData(
-    import.meta.env.VITE_AUTH_API + '/users',
-    fetchOptions,
-  );
-
-  return registrationResult;
 }
 
 export {useMedia, useAuthentication, useUser};
