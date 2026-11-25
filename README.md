@@ -1,3 +1,3 @@
-## Custom Hooks assignment
+## Forms assignment
 
-Open [Custom Hooks app](https://users.metropolia.fi/~nikojki/custom-hooks/) to view it in the browser.
+Open [Forms app](https://users.metropolia.fi/~nikojki/forms/) to view it in the browser.

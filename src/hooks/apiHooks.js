@@ -31,4 +31,59 @@ function useMedia() {
   return {mediaArray};
 }
 
-export {useMedia};
+function useAuthentication() {
+  async function postLogin(inputs) {
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(inputs),
+    };
+
+    const loginResult = await fetchData(
+      import.meta.env.VITE_AUTH_API + '/auth/login',
+      fetchOptions,
+    );
+
+    return loginResult;
+  }
+
+  return postLogin;
+}
+
+function useUser() {
+  async function getUserByToken(token) {
+    const userResult = await fetchData(
+      import.meta.env.VITE_AUTH_API + '/users/token',
+      {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      },
+    );
+
+    return userResult.user;
+  }
+
+  return {getUserByToken, postUser};
+}
+
+async function postUser(inputs) {
+  const fetchOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(inputs),
+  };
+
+  const registrationResult = await fetchData(
+    import.meta.env.VITE_AUTH_API + '/users',
+    fetchOptions,
+  );
+
+  return registrationResult;
+}
+
+export {useMedia, useAuthentication, useUser};
