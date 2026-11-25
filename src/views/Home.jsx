@@ -1,35 +1,8 @@
 import MediaRow from '../components/MediaRow';
-import {useState, useEffect} from 'react';
-import {fetchData} from '../utils/fetchData';
+import {useMedia} from '../hooks/apiHooks';
 
-const Home = () => {
-  const [mediaArray, setMediaArray] = useState([]);
-
-  useEffect(() => {
-    async function getMedia() {
-      try {
-        const json = await fetchData(import.meta.env.VITE_MEDIA_API + '/media');
-
-        const newArray = await Promise.all(
-          json.map(async (item) => {
-            const user = await fetchData(
-              import.meta.env.VITE_AUTH_API + '/users/' + item.user_id,
-            );
-
-            return {...item, username: user.username};
-          }),
-        );
-
-        setMediaArray(newArray);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    getMedia();
-  }, []);
-
-  console.log(mediaArray);
+function Home() {
+  const {mediaArray} = useMedia();
 
   return (
     <>
@@ -55,5 +28,5 @@ const Home = () => {
       </table>
     </>
   );
-};
+}
 export default Home;
